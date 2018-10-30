@@ -1,0 +1,70 @@
+example1:
+java RpnClient 8189 "19 4 - 2 - 8 -"
+Server received: "19 4 -"
+Client Received: 15
+Server received: "15 2 -"
+Client Received: 13
+Server received: "13 8 -"
+Client Received Final: 5
+
+example2:
+java RpnClient 8189 "5 6 * 7 9 / +"
+Server received: "5 6 *"
+Client Received: 30
+Server received: "7 9 /"
+Client Received: 0
+Server received: "30 0 +"
+Client Received Final: 30
+
+example3:
+java RpnClient 8189 "-4 -3 * 9 10 -3 + - /"
+Server received: "-4 -3 *"
+Client Received: 12
+Server received: "10 -3 +"
+Client Received: 7
+Server received: "9 7 -"
+Client Received: 2
+Server received: "12 2 /"
+Client Received Final: 6
+
+example4:
+java RpnClient 8189 "4 8 * 32 8 8 - / +"
+Server received: "4 8 *"
+Client Received: 32
+Server received: "8 8 -"
+Client Received: 0
+Server received: "32 0 /"
+[Error104] Wrong calculation: divisor is 0
+
+example5:
+java RpnClient 8189 "4 8 * 32 8 8 - + / *"
+Server received: "4 8 *"
+Client Received: 32
+Server received: "8 8 -"
+Client Received: 0
+Server received: "32 0 +"
+Client Received: 32
+Server received: "32 32 /"
+Client Received: 1
+[Error100] Incomplete expression: lack of operand
+
+example6:
+java RpnClient 8189 "4 8 32 8 8 - + /"
+Server received: "8 8 -"
+Client Received: 0
+Server received: "32 0 +"
+Client Received: 32
+Server received: "8 32 /"
+Client Received Final: 0
+[Error101] Incomplete expression: lack of operator
+
+example7:
+java RpnClient 8189 "4881788172 12123 -"
+[Error102] Wrong expression: operand is integer overflow
+
+example8:
+java RpnClient 8189 "10000 10000 10000 * *"
+Server received: "10000 10000 *"
+Client Received: 100000000
+Server received: "10000 100000000 *"
+[Error103] Wrong calculation: result is integer overflow
